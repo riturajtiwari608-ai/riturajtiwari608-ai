@@ -74,10 +74,13 @@ Building automation tools, AI projects, and scalable web applications.
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=riturajtiwari608-ai&show_icons=true&theme=tokyonight" height="180"/>
-  
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=riturajtiwari608-aiE&layout=compact&theme=tokyonight" height="180"/>
+
+<img src="https://github-readme-stats-sigma-five.vercel.app/api?username=riturajtiwari608-ai&show_icons=true&theme=tokyonight" height="180"/>
+
+<img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=riturajtiwari608-ai&layout=compact&theme=tokyonight" height="180"/>
+
 </p>
+
 
 ---
 
@@ -91,7 +94,7 @@ Building automation tools, AI projects, and scalable web applications.
 
 ## 🌐 Connect With Me
 
-<p>
+<p align="center">
 <a href="https://linkedin.com/in/rituraj-tiwari-013b30197" target="blank">
 <img align="center" src="https://skillicons.dev/icons?i=linkedin" height="40" />
 </a>
