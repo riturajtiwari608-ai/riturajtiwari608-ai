@@ -1,1 +1,744 @@
-<h1>Hello!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rituraj Tiwari — Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --border:    #1f1f1f;
+      --border-hi: #2e2e2e;
+      --muted:     #555555;
+      --text:      #e8e8e8;
+      --text-dim:  #999999;
+      --accent:    #e8e8e8;
+      --dot:       #1c1c1c;
+      --radius:    6px;
+      --mono: 'Geist Mono', 'Courier New', monospace;
+      --serif: 'Instrument Serif', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13.5px;
+      line-height: 1.6;
+      min-height: 100vh;
+      /* dot-grid background */
+      background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.85);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-logo:hover { color: var(--text); }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Sections ── */
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── Hero ── */
+    #hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--muted);
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--text-dim);
+    }
+    .hero-tagline {
+      font-size: 13px;
+      color: var(--text-dim);
+      max-width: 480px;
+      margin: 20px 0 36px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--text);
+      color: #0a0a0a;
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: #cccccc; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border-hi);
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+    /* ── Section Labels ── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .about-bio {
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-size: 13px;
+    }
+    .about-bio strong { color: var(--text); font-weight: 500; }
+    .about-meta { display: flex; flex-direction: column; gap: 16px; }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-key { color: var(--muted); }
+    .meta-val { color: var(--text); text-align: right; }
+    .meta-val a { color: var(--text); text-decoration: none; }
+    .meta-val a:hover { text-decoration: underline; }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .skill-group {
+      background: var(--bg);
+      padding: 20px;
+    }
+    .skill-group-title {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      padding: 3px 9px;
+      font-size: 11.5px;
+      border: 1px solid var(--border-hi);
+      border-radius: 3px;
+      color: var(--text-dim);
+      background: var(--surface);
+      transition: all 0.15s;
+    }
+    .tag:hover { border-color: var(--muted); color: var(--text); }
+
+    /* ── Projects ── */
+    .projects-list { display: flex; flex-direction: column; gap: 1px; }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 8px;
+    }
+    .project-card:hover {
+      border-color: var(--border-hi);
+      background: var(--surface);
+    }
+    .project-card:last-child { margin-bottom: 0; }
+    .project-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .project-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .stack-tag {
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .project-arrow {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1;
+      padding-top: 2px;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .project-card:hover .project-arrow {
+      transform: translate(2px, -2px);
+      color: var(--text);
+    }
+
+    /* ── Education ── */
+    .edu-list { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+    .edu-degree {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .edu-school {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .edu-courses {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .edu-year {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* ── Contact ── */
+    .contact-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid var(--border-hi);
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--muted);
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── Status dot ── */
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .status-dot::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade8055;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-arrow { display: none; }
+      footer .container { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="container">
+      <a href="#hero" class="nav-logo">RT</a>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-eyebrow fade-up">MCA Student · Lucknow, India</div>
+      <h1 class="hero-name fade-up" style="transition-delay:0.05s">
+        Rituraj<br /><em>Tiwari</em>
+      </h1>
+      <p class="hero-tagline fade-up" style="transition-delay:0.1s">
+        Building automation tools, AI systems, and web applications. 
+        Focused on Python, full-stack development, and machine learning.
+      </p>
+      <div class="hero-cta fade-up" style="transition-delay:0.15s">
+        <a href="https://github.com/riturajtiwari608-ai" target="_blank" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/rituraj-tiwari-013b30197" target="_blank" class="btn btn-ghost">LinkedIn</a>
+        <a href="mailto:riturajtiwari608@gmail.com" class="btn btn-ghost">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label fade-up">About</div>
+      <div class="about-grid">
+        <div class="about-bio fade-up" style="transition-delay:0.05s">
+          <p>
+            MCA student at <strong>IET Lucknow</strong> with a strong Mathematics foundation 
+            from BSc (Hons) in Mathematics. Passionate about building practical software — 
+            from AI-powered emotion detection to CLI trading bots.
+          </p>
+          <br />
+          <p>
+            Currently sharpening <strong>DSA</strong>, backend engineering, and system design. 
+            I enjoy projects that sit at the intersection of automation, machine learning, 
+            and clean developer tooling.
+          </p>
+          <br />
+          <p style="color: var(--muted);">
+            "Code. Build. Learn. Repeat."
+          </p>
+        </div>
+        <div class="about-meta fade-up" style="transition-delay:0.1s">
+          <div class="meta-row">
+            <span class="meta-key">status</span>
+            <span class="meta-val"><span class="status-dot">open to work</span></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">location</span>
+            <span class="meta-val">Lucknow, UP</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">education</span>
+            <span class="meta-val">MCA @ IET</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">focus</span>
+            <span class="meta-val">Python · AI/ML · Web</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">github</span>
+            <span class="meta-val"><a href="https://github.com/riturajtiwari608-ai" target="_blank">riturajtiwari608-ai</a></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">email</span>
+            <span class="meta-val"><a href="mailto:riturajtiwari608@gmail.com">riturajtiwari608@gmail.com</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label fade-up">Projects</div>
+      <div class="projects-list">
+
+        <a class="project-card fade-up" href="https://github.com/riturajtiwari608-ai/Trading-Bot" target="_blank" style="transition-delay:0.05s">
+          <div>
+            <div class="project-title">
+              Binance Futures Testnet Trading Bot
+            </div>
+            <p class="project-desc">
+              Python CLI trading bot for Binance USD-M Futures Testnet. Supports market, limit, and stop-limit orders with HMAC SHA256 authenticated API calls, server-time sync, and a rich interactive CLI.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Binance API</span>
+              <span class="stack-tag">Typer</span>
+              <span class="stack-tag">HMAC SHA256</span>
+              <span class="stack-tag">CLI</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-card fade-up" href="https://github.com/riturajtiwari608-ai/rituraj_project" target="_blank" style="transition-delay:0.1s">
+          <div>
+            <div class="project-title">
+              Emotion Detection via Facial Images
+            </div>
+            <p class="project-desc">
+              Facial emotion recognition system built with CNNs and computer vision. Classifies emotions (Happy, Sad, Angry, Neutral) using normalization, data augmentation, and standard facial expression datasets.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">CNN</span>
+              <span class="stack-tag">Computer Vision</span>
+              <span class="stack-tag">AI/ML</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-card fade-up" href="https://github.com/riturajtiwari608-ai/mega-project-jarvis" target="_blank" style="transition-delay:0.15s">
+          <div>
+            <div class="project-title">
+              JARVIS — Voice-Based Virtual Assistant
+            </div>
+            <p class="project-desc">
+              Python voice assistant with hands-free human–computer interaction. Opens apps, runs web searches, and delivers spoken responses via speech recognition and text-to-speech, all in a modular codebase.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Speech Recognition</span>
+              <span class="stack-tag">TTS</span>
+              <span class="stack-tag">Automation</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+        <a class="project-card fade-up" href="https://github.com/riturajtiwari608-ai/chatbot-Ai" target="_blank" style="transition-delay:0.2s">
+          <div>
+            <div class="project-title">
+              AI ChatBot Reply System
+            </div>
+            <p class="project-desc">
+              Automated chatbot combining rule-based logic with API-assisted responses. Modular components handle conversational flow, input parsing, and external API integration for extensibility.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">JavaScript</span>
+              <span class="stack-tag">API Integration</span>
+              <span class="stack-tag">NLP</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label fade-up">Skills</div>
+      <div class="skills-grid fade-up" style="transition-delay:0.05s">
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Java</span>
+            <span class="tag">C</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Frontend</div>
+          <div class="skill-tags">
+            <span class="tag">React</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Backend</div>
+          <div class="skill-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">AI / ML</div>
+          <div class="skill-tags">
+            <span class="tag">CNNs</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Data Augmentation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Core CS</div>
+          <div class="skill-tags">
+            <span class="tag">DSA</span>
+            <span class="tag">DBMS</span>
+            <span class="tag">OS</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Tooling</div>
+          <div class="skill-tags">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label fade-up">Education</div>
+      <div class="edu-list">
+        <div class="edu-item fade-up" style="transition-delay:0.05s">
+          <div>
+            <div class="edu-degree">Master of Computer Applications (MCA)</div>
+            <div class="edu-school">Institute of Engineering and Technology (IET), Lucknow, UP</div>
+            <div class="edu-courses">DSA · OOP · DBMS · Operating Systems · Computer Networks</div>
+          </div>
+          <div class="edu-year">2024 – Present</div>
+        </div>
+        <div class="edu-item fade-up" style="transition-delay:0.1s">
+          <div>
+            <div class="edu-degree">Bachelor of Science — Mathematics (Hons)</div>
+            <div class="edu-school">Bangabasi College, Kolkata, WB</div>
+            <div class="edu-courses">Linear Algebra · Calculus · Differential Equations · Probability · Numerical Methods</div>
+          </div>
+          <div class="edu-year">2021</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label fade-up">Contact</div>
+      <p class="fade-up" style="color:var(--text-dim);font-size:13px;margin-bottom:24px;max-width:420px;line-height:1.7;transition-delay:0.05s">
+        Open to internships, collaborations, and interesting projects. Feel free to reach out.
+      </p>
+      <div class="contact-row fade-up" style="transition-delay:0.1s">
+        <a href="mailto:riturajtiwari608@gmail.com" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          riturajtiwari608@gmail.com
+        </a>
+        <a href="https://github.com/riturajtiwari608-ai" target="_blank" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/rituraj-tiwari-013b30197" target="_blank" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="tel:+919330166755" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +91 93301 66755
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <span>Rituraj Tiwari · 2025</span>
+      <span>Built with HTML, CSS & JS</span>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-up animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Smooth active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const onScroll = () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--text)' : '';
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+</html>
